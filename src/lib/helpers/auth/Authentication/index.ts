@@ -1,7 +1,7 @@
 import crypto from '../../crypto';
 import { type cookieConfigOption } from '../../cookie/cookie';
 import cookie from '../../cookie';
-import type { User } from '../../../../components/User/user';
+import type { User } from '../../../../modules/User/user';
 import Http from '../../../http';
 import JWT from '../../jwt';
 import url from '../../../http/url';

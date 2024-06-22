@@ -4,32 +4,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title='Welcome'>
   <main
-    class='flex h-full w-full flex-col items-center justify-center bg-red-100 pt-40'
+    class='flex h-full w-full flex-col items-center justify-center'
   >
     <section
-      class='flex max-w-7xl flex-col items-center justify-evenly gap-8 md:flex-row'
+      class='w-full h-[100vh] bg-red-100 md:pt-48 md:px-20 pt-20 px-12 flex justify-center items-start'
     >
-      <div class='flex flex-col gap-4'>
-        <h1 class='text-4xl font-bold'>Welcome to Astro</h1>
-        <p class='text-lg'>
-          This is a simple Astro starter template with Tailwind CSS.
-        </p>
-        <p class='text-lg'>
-          You can use this template to build your own Astro project.
-        </p>
-      </div>
-
-      <div class='flex flex-col gap-4'>
-        <h2 class='text-2xl font-bold'>Features</h2>
-        <ul class='list-inside list-disc'>
-          <li>HTML, CSS, and JavaScript</li>
-          <li>Markdown and MDX</li>
-          <li>Layouts and Components</li>
-          <li>SEO and Social Meta Tags</li>
-          <li>Dark Mode and Light Mode</li>
-          <li>Responsive Design</li>
-          <li>Performance Optimized</li>
-        </ul>
+      <div class="flex md:flex-row flex-col gap-8 max-w-7xl">
+        <div class="flex flex-col items-start justify-center gap-8">
+          <h1 class="font-bold text-3xl md:text-5xl">The Link That Connects Everything About You.</h1>
+          <p class="max-w-2xl">
+            Share all your important links in one place. Perfect for social media bios, email signatures, and <a href="#usage" class="hover:underline">many more</a>.
+          </p>
+        </div>
+        <div class="flex flex-col items-center justify-center gap-8">
+          <div class="mobile w-[350px] h-[600px] rounded-3xl bg-white shadow-lg border-4 border-gray-800"></div>
+        </div>
       </div>
     </section>
   </main>

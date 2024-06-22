@@ -1,5 +1,5 @@
 import { atom } from 'nanostores';
-import type { User } from '../../components/User/user';
+import type { User } from '../../modules/User/user';
 
 export type Auth = {
   user: User;
