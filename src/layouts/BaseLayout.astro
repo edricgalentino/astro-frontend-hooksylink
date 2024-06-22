@@ -1,0 +1,29 @@
+---
+import Topbar from '../components/Topbar/Topbar.astro';
+import '@fontsource-variable/inter';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en' class='scroll-smooth transition-all'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='HooksyLink' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title} - HooksyLink</title>
+  </head>
+  <body class='font-sans'>
+    <slot name='before-login-topbar'>
+      <Topbar />
+    </slot>
+
+    <slot />
+  </body>
+</html>
