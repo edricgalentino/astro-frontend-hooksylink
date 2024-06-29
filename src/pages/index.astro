@@ -1,25 +1,363 @@
 ---
+import FormClaimUsername from '../components/LandingPage/FormClaimUsername';
+import FAQSection from '../components/LandingPage/Sections/FAQSection';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const features = [
+  {
+    title: 'Customizable',
+    description:
+      'Customize your profile with your own colors, fonts, and backgrounds.',
+    image: '/illustration/landing/1.svg',
+  },
+  {
+    title: 'SEO Friendly',
+    description:
+      'Optimized for search engines to help you rank higher on Google Search.',
+    image: '/illustration/landing/2.svg',
+  },
+  {
+    title: 'Analytics',
+    description:
+      'Track your profile visits and link clicks with our built-in analytics.',
+    image: '/illustration/landing/3.svg',
+  },
+  {
+    title: 'Responsive',
+    description:
+      'Your profile is optimized for all devices, including mobile and desktop.',
+    image: '/illustration/landing/4.svg',
+  },
+  {
+    title: 'Easy Integration',
+    description: 'Seamlessly integrate with all your social media platforms.',
+    image: '/illustration/landing/5.svg',
+  },
+  {
+    title: 'Unlimited Links',
+    description:
+      'Add as many links as you want to your profile without any restrictions.',
+    image: '/illustration/landing/6.svg',
+  },
+  {
+    title: 'Security',
+    description:
+      'Keep your links safe with top-notch security features. Control who can view your content with privacy settings.',
+    image: '/illustration/landing/7.svg',
+  },
+];
+
+const pricing = [
+  {
+    title: 'Free',
+    description: 'Used mostly for personal use and small businesses',
+    detailDescription:
+      'Get started with the basics. Includes customizable links, basic analytics, and integration with major social media platforms.',
+    isFree: true,
+    features: [
+      'Unlimited Links',
+      'Basic Analytics',
+      'Customizable Profile',
+      'Responsive Design',
+    ],
+    price: '$0',
+  },
+  {
+    title: 'Pro',
+    description: 'Best for growing businesses and influencers',
+    detailDescription:
+      'Unlock advanced features for professionals. Includes detailed analytics, premium themes, priority support, and more. Best for growing businesses and influencers',
+    isFree: false,
+    features: [
+      'All Free Features',
+      'Advanced Analytics',
+      'Priority Support',
+      'Custom Domain',
+      'SEO Friendly',
+      'No HooksyLink Branding',
+      'Custom CSS',
+      'Custom Background',
+    ],
+    price: '$29.99',
+  },
+];
 ---
 
-<BaseLayout title='Welcome'>
-  <main
-    class='flex h-full w-full flex-col items-center justify-center'
-  >
+<BaseLayout title='One Link to Rule Them All'>
+  <main class='flex h-full w-full flex-col items-center justify-center'>
     <section
-      class='w-full h-[100vh] bg-red-100 md:pt-48 md:px-20 pt-20 px-12 flex justify-center items-start'
+      class='flex h-full w-full items-start justify-center bg-[#f8f4e1] p-8 pt-32 lg:px-20 lg:pt-48'
     >
-      <div class="flex md:flex-row flex-col gap-8 max-w-7xl">
-        <div class="flex flex-col items-start justify-center gap-8">
-          <h1 class="font-bold text-3xl md:text-5xl">The Link That Connects Everything About You.</h1>
-          <p class="max-w-2xl">
-            Share all your important links in one place. Perfect for social media bios, email signatures, and <a href="#usage" class="hover:underline">many more</a>.
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 xl:max-w-[80%] xl:flex-row'
+      >
+        <div class='flex w-full flex-col items-start justify-center gap-8'>
+          <h1 class='max-w-4xl text-4xl font-bold md:text-6xl'>
+            Link That <span class='text-red-800'>Connects Everything</span>. One
+            Link to Rule Them All.
+          </h1>
+          <p class='max-w-2xl text-lg md:text-xl'>
+            Say goodbye to juggling multiple links. With
+            <span class='font-bold underline'>HooksyLink</span>, you can create
+            a single, or even multiple streamlined link that directs your
+            audience to all your social media platforms and important online
+            destinations.
           </p>
+          <FormClaimUsername client:visible />
         </div>
-        <div class="flex flex-col items-center justify-center gap-8">
-          <div class="mobile w-[350px] h-[600px] rounded-3xl bg-white shadow-lg border-4 border-gray-800"></div>
+        <div class='flex h-full flex-col items-center justify-center gap-8'>
+          <div
+            class='mobile h-[500px] w-[250px] rounded-3xl border-4 border-gray-800 bg-white shadow-lg md:h-[700px] md:w-[350px]'
+          >
+            <img
+              src='/images/hero.png'
+              alt='Hero Image'
+              class='h-full w-full rounded-3xl object-cover'
+            />
+          </div>
         </div>
       </div>
     </section>
+
+    <section
+      class='flex h-full w-full items-center justify-center border-b border-black py-20 md:px-20 md:py-20'
+    >
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
+      >
+        <h2 class='text-center text-2xl font-bold md:text-4xl'>
+          Centralize Your Online Presence with HooksyLink
+        </h2>
+        <p class='text-center text-base md:max-w-2xl md:text-xl'>
+          Bring all your social media profiles and online presence together with
+          HooksyLink. Share <span class='font-bold'>one easy link</span> that connects
+          your audience to everything you do online. Perfect for social media bios,
+          single page marketing sites, and
+          <a href='#usage' class='underline'>many more</a>.
+        </p>
+        <a href='/sign-in'>
+          <button
+            class='button whitespace-nowrap rounded-full bg-red-800 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl lg:p-4 lg:px-8'
+          >
+            Get Started for Free
+          </button>
+        </a>
+      </div>
+    </section>
+
+    <section
+      class='flex h-full w-full items-center justify-center border-b border-black p-16 md:px-20'
+    >
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 md:max-w-[80%]'
+      >
+        <div class='flex w-full flex-col items-center justify-center gap-2'>
+          <h2 class='text-4xl font-bold md:text-6xl'>Features</h2>
+          <h6>Why Choose Hooksylink?</h6>
+        </div>
+        <div class='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+          {
+            features.map((feature) => (
+              <div class='relative bottom-0 flex flex-col items-center justify-center gap-4 rounded-xl border border-black px-6 py-10 transition-all duration-150 ease-in-out hover:bottom-2 hover:shadow-lg'>
+                <img
+                  src={feature.image}
+                  alt={feature.title}
+                  class='h-48 w-48 md:h-64 md:w-64'
+                />
+                <h3 class='text-xl font-semibold md:text-3xl'>
+                  {feature.title}
+                </h3>
+                <p class='text-center text-lg'>{feature.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      id='pricing'
+      class='flex h-full w-full items-center justify-center border-b border-black bg-[#f8f4e1] py-20 md:px-20 md:py-20'
+    >
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
+      >
+        <div class='flex w-full flex-col items-center justify-center gap-2'>
+          <h2 class='text-center text-2xl font-bold md:text-4xl'>Pricing</h2>
+          <p>Affordable Plans for Everyone</p>
+        </div>
+
+        <div class='flex w-full items-start justify-center gap-8'>
+          {
+            pricing.map((plan) => (
+              <a
+                href={
+                  plan.isFree
+                    ? '/sign-in'
+                    : `/sign-in?plan=${plan.title.toLowerCase()}`
+                }
+                class='flex h-full max-w-sm flex-col items-center justify-start gap-4 rounded-xl border border-black bg-white px-6 py-10 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg'
+              >
+                <h3 class='text-xl font-semibold md:text-3xl'>{plan.title}</h3>
+                <p class='h-10 text-center text-base'>{plan.description}</p>
+                <ul class='h-64 text-left'>
+                  {plan.features.map((feature) => (
+                    <li class='flex items-center gap-2 text-lg'>
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        class='h-8 w-8 text-green-500'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='currentColor'
+                      >
+                        <path
+                          stroke-linecap='round'
+                          stroke-linejoin='round'
+                          stroke-width='2'
+                          d='M5 13l4 4L19 7'
+                        />
+                      </svg>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div class='flex flex-col items-center justify-center gap-1'>
+                  <h3 class='text-xl font-semibold md:text-3xl'>
+                    {plan.price}
+                  </h3>
+                  <p class='text-center text-base'>
+                    {!plan.isFree
+                      ? 'One-time payment. No subscription'
+                      : 'Free forever'}
+                  </p>
+                </div>
+                <button class='button whitespace-nowrap rounded-full bg-red-800 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl'>
+                  Get Started for Free
+                </button>
+              </a>
+            ))
+          }
+        </div>
+
+        <p class='max-w-2xl text-center text-base md:text-xl'>
+          No matter your needs, we have a plan for you. Start for free, and
+          upgrade as you grow. Enjoy flexible pricing options designed to fit
+          any budget.
+        </p>
+      </div>
+    </section>
+
+    <section
+      class='flex h-full w-full items-center justify-center border-b border-black py-20 md:px-20 md:py-20'
+    >
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
+      >
+        <h2 class='text-center text-2xl font-bold md:text-4xl'>
+          What you can expect from HooksyLink
+        </h2>
+        <p class='max-w-2xl text-center text-base md:text-xl'>
+          Transform your bio link into a powerful tool with HooksyLink. Combine
+          all your social media accounts, websites, and more into one dynamic
+          and customizable link.
+        </p>
+        <a href='/sign-in'>
+          <button
+            class='button whitespace-nowrap rounded-full bg-slate-900 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl lg:p-4 lg:px-8'
+          >
+            Get Started for Free
+          </button>
+        </a>
+      </div>
+    </section>
+
+    <FAQSection client:visible />
+
+    <section
+      class='flex h-full w-full items-center justify-center py-20 md:px-20 md:py-20'
+    >
+      <div
+        class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
+      >
+        <h2 class='text-center text-2xl font-bold md:text-4xl'>
+          Ready to get started?
+        </h2>
+        <p class='max-w-2xl text-center text-base md:text-xl'>
+          Sign up today and create your Hooksylink for free! Unify all your
+          social media profiles, websites, and important links into a single,
+          customizable link.
+        </p>
+        <FormClaimUsername client:visible />
+      </div>
+    </section>
   </main>
+
+  <footer class='flex w-full flex-col items-center justify-center'>
+    <div
+      class='flex w-full flex-col gap-8 bg-[#f8f4e1] p-8 md:max-w-[80%] md:flex-row md:rounded-full md:p-16'
+    >
+      <div class='flex w-full flex-col items-center justify-center gap-4'>
+        <a href='/' class='flex items-end justify-center gap-1'>
+          <img
+            src='/logo/hooksylink_logo.png'
+            alt='HooksyLink'
+            class='h-9 w-9 md:h-10 md:w-10'
+          />
+          <h1
+            class='topbar-title text-xl font-extrabold text-slate-700 md:text-2xl'
+          >
+            ooksyLink
+          </h1>
+        </a>
+        <p class='whitespace-nowrap text-sm md:text-base'>
+          One Link to Rule Them All.
+        </p>
+      </div>
+
+      <div
+        class='flex w-full items-start justify-center gap-6 text-sm md:gap-12 md:text-base'
+      >
+        <div class='flex flex-col items-start justify-center gap-4'>
+          <h3 class='text-lg font-semibold'>Company</h3>
+          <a href='/about' class='hover:underline'>About Us</a>
+        </div>
+        <div class='flex flex-col items-start justify-center gap-4'>
+          <h3 class='text-lg font-semibold'>Product</h3>
+          <a href='#features' class='hover:underline'>Features</a>
+          <a href='#pricing' class='hover:underline'>Pricing</a>
+        </div>
+        <div class='flex flex-col items-start justify-center gap-4'>
+          <h3 class='text-lg font-semibold'>Support</h3>
+          <a href='#faq' class='hover:underline'>FAQ</a>
+          <a href='/support' class='hover:underline'>Support</a>
+        </div>
+      </div>
+    </div>
+    <div
+      class='flex w-full max-w-[80%] flex-col-reverse items-center justify-between gap-y-6 p-6 text-sm md:h-16 md:flex-row md:text-base'
+    >
+      <p class='w-full text-center'>
+        &copy; 2024
+        <a href='https://hooksy.link' class='underline'>HooksyLink</a>. All
+        rights reserved.
+      </p>
+
+      <div class='flex w-full justify-center gap-4'>
+        <a href='/toc' class='hover:underline'>Terms</a>
+        <a href='/privacy' class='hover:underline'>Privacy</a>
+        <a href='/support' class='hover:underline'>Customer Support</a>
+      </div>
+    </div>
+  </footer>
 </BaseLayout>
+<style>
+  .button:hover {
+    padding-right: 48px;
+    padding-left: 48px;
+  }
+  .button {
+    padding-right: 32px;
+    padding-left: 32px;
+    transition: all 0.2s;
+  }
+</style>

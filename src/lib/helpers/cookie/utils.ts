@@ -1,4 +1,4 @@
-import { type cookieConfigOption } from './cookie';
+import type { cookieConfigOption } from './cookie';
 
 export function cookieValueAdapter(value: any) {
   if (typeof value === 'object') {

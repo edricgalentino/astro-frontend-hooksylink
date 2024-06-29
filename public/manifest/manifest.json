@@ -1,0 +1,29 @@
+{
+  "dir": "ltr",
+  "lang": "en",
+  "name": "HooksyLink",
+  "scope": "/",
+  "start_url": "https://hooksy.link/",
+  "short_name": "HooksyLink",
+  "description": "Link That Connects Everything. - hooksy.link",
+  "orientation": "any",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/manifest/icon152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/manifest/icon196.png",
+      "sizes": "196x196",
+      "type": "image/png"
+    }
+  ]
+}
+
+

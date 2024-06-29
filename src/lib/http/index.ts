@@ -77,8 +77,8 @@ class HttpCall {
     options?: HttpOptionsType,
   ): Promise<ApiReturn<ResponseType, ErrorType>> {
     try {
-      const fingerprintPromise = await fp.load();
-      const fingerprint = await fingerprintPromise.get();
+      // const fingerprintPromise = await fp.load();
+      // const fingerprint = await fingerprintPromise.get();
 
       const response = await fetch(url, {
         credentials: 'include',
@@ -87,7 +87,7 @@ class HttpCall {
           'Content-Type': 'application/json',
           Accept: 'application/json',
           Authorization: `Bearer ${Cookies.get(JWT.TOKEN_COOKIE_NAME)}`,
-          fp: fingerprint.visitorId,
+          // fp: fingerprint.visitorId,
           ...(options?.headers ?? {}),
         }),
       });
@@ -113,7 +113,6 @@ class HttpCall {
       }
 
       if (data.status === 403) {
-        // window.location.href = '/account'; // @fixme redirect option should be configurable
         return { response: undefined, error: data as ErrorType };
       }
 

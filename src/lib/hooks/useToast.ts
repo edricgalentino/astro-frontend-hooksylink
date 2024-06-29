@@ -1,4 +1,4 @@
-import { $toastMessage } from '../lib/stores/toast';
+import { $toastMessage } from '../stores/toast';
 
 export function useToast() {
   function success(message: string) {

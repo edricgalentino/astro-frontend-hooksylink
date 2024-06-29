@@ -1,4 +1,5 @@
-import { AES, enc, mode, pad } from 'crypto-js';
+import pkg from 'crypto-js';
+const { AES, enc, mode, pad } = pkg;
 
 class Crypto {
   private static CONFIG = {

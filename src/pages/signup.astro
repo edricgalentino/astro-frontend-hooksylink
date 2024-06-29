@@ -1,0 +1,47 @@
+---
+import Divider from '../components/Login/Divider.astro';
+import { EmailSignupForm } from '../components/Login/EmailSignupForm';
+import { GitHubButton } from '../components/Login/GitHubButton';
+import { GoogleButton } from '../components/Login/GoogleButton';
+import { LinkedInButton } from '../components/Login/LinkedInButton';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title='Sign Up'>
+  <div slot='slot-topbar'></div>
+  <main
+    class='flex h-screen w-full items-center justify-center bg-[#f8f4e1] p-4 sm:p-0'
+  >
+    <section
+      class='mx-auto flex flex-col items-start justify-start rounded-2xl border border-black bg-white p-6 shadow-xl sm:max-w-[400px] sm:items-center sm:justify-center sm:py-20 md:p-10'
+    >
+      <div class='mb-2 text-left sm:mb-5 sm:text-center'>
+        <h1 class='mb-2 text-3xl font-bold sm:mb-5 sm:text-5xl'>Sign Up</h1>
+        <p class='mb-3 text-base leading-6 text-gray-600'>
+          Join HooksyLink community for free and start sharing your
+          personal/business favourite links with the world.
+        </p>
+      </div>
+
+      <div class='flex w-full flex-col gap-2'>
+        <GitHubButton client:load />
+        <GoogleButton client:load />
+        <LinkedInButton client:load />
+      </div>
+
+      <Divider />
+
+      <EmailSignupForm client:load />
+
+      <div class='mt-6 text-center text-sm text-slate-600'>
+        Already have an account?{' '}
+        <a
+          href='/login'
+          class='font-medium text-red-800 hover:text-red-700 hover:underline'
+        >
+          Login
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

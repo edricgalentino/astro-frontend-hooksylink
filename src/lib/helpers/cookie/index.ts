@@ -1,4 +1,4 @@
-import { type cookieConfigOption } from './cookie';
+import type { cookieConfigOption } from './cookie';
 import { cookieValueAdapter, generateCookieConfig } from './utils';
 
 class Cookies {

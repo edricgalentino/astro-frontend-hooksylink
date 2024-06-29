@@ -1,0 +1,22 @@
+---
+import BaseLayout, { type Props as BaseLayoutProps } from './BaseLayout.astro';
+import AdminSidebar from './../components/AdminSidebar';
+
+export interface Props extends BaseLayoutProps {}
+
+const props = Astro.props;
+---
+
+<BaseLayout {...props} noIndex={true}>
+  <div slot='slot-topbar'></div>
+
+  <AdminTopbar />
+
+  <slot name='slot-sidebar'>
+    <AdminSidebar />
+  </slot>
+
+  <PreviewTemplate />
+
+  <slot />
+</BaseLayout>

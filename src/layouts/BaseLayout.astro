@@ -1,29 +1,139 @@
 ---
+import Authenticator from '../components/Common/Authenticator/Authenticator.astro';
+import { siteConfig } from '../lib/core/config';
 import Topbar from '../modules/Topbar/Topbar.astro';
 import '@fontsource-variable/inter';
 
-interface Props {
+export interface Props {
   title: string;
+  ogImageUrl?: string;
+  redirectUrl?: string;
+  description?: string;
+  keywords?: string[];
+  noIndex?: boolean;
+  canonicalUrl?: string;
+  initialLoadingMessage?: string;
+  permalink?: string;
+  jsonLd?: Record<string, unknown>[];
 }
 
-const { title } = Astro.props;
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  ogImageUrl = 'https://hooksy.link/images/og-img.png',
+  keywords = siteConfig.keywords,
+  noIndex = false,
+  permalink = '',
+  canonicalUrl: givenCanonical = '',
+  jsonLd = [],
+  redirectUrl = '',
+} = Astro.props;
+
+// Remove trailing slashes to consider the page as canonical
+const currentPageAbsoluteUrl = `https://hooksy.link${permalink}`;
+const canonicalUrl = givenCanonical || currentPageAbsoluteUrl;
 ---
 
 <!doctype html>
 <html lang='en' class='scroll-smooth transition-all'>
   <head>
     <meta charset='UTF-8' />
-    <meta name='description' content='HooksyLink' />
-    <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='generator' content={Astro.generator} />
+    <meta name='description' content={description} />
+    <meta name='author' content='Edric Galentino' />
+    <meta name='keywords' content={keywords.join(', ')} />
+    {
+      redirectUrl && (
+        <meta http-equiv='refresh' content={`1;url=${redirectUrl}`} />
+      )
+    }
+    {noIndex && <meta name='robots' content='noindex' />}
+    <meta
+      name='viewport'
+      content='width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0'
+    />
+    <meta http-equiv='Content-Language' content='en' />
+
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:creator' content='@edricgalentino' />
+
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='630' />
+    <!-- <meta
+      property='og:image'
+      content={ogImageUrl || 'https://hooksy.link/images/og-img.png'}
+    /> -->
+    <meta property='og:image:alt' content='hooksy.link' />
+    <meta property='og:site_name' content='hooksy.link' />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content={currentPageAbsoluteUrl} />
+
+    <link rel='canonical' href={canonicalUrl} />
+
+    <meta name='mobile-web-app-capable' content='yes' />
+    <meta name='apple-mobile-web-app-capable' content='yes' />
+    <meta
+      name='apple-mobile-web-app-status-bar-style'
+      content='black-translucent'
+    />
+    <meta name='apple-mobile-web-app-title' content='hooksy.link' />
+    <meta name='application-name' content='hooksy.link' />
+    <meta name='msapplication-TileColor' content='#00aba9' />
+    <meta name='theme-color' content='#ffffff' />
+
+    <link rel='manifest' href='/manifest/manifest.json' />
+    <link
+      rel='apple-touch-icon'
+      sizes='180x180'
+      href='/manifest/apple-touch-icon.png'
+    />
+    <link
+      rel='icon'
+      type='image/png'
+      sizes='32x32'
+      href='/manifest/icon32.png'
+    />
+    <link
+      rel='icon'
+      type='image/png'
+      sizes='16x16'
+      href='/manifest/icon16.png'
+    />
+    <link
+      rel='shortcut icon'
+      href='/manifest/favicon.ico'
+      type='image/x-icon'
+    />
+    <link rel='icon' href='/manifest/favicon.ico' type='image/x-icon' />
+
+    <link rel='preconnect' href='https://www.google-analytics.com/' />
+    <!-- <link rel='preconnect' href='https://api.hooksy.link/' /> -->
+
+    <slot name='after-header' />
+    {
+      jsonLd.length > 0 && (
+        <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />
+      )
+    }
     <title>{title} - HooksyLink</title>
   </head>
   <body class='font-sans'>
-    <slot name='before-login-topbar'>
+    <slot name='slot-topbar'>
       <Topbar />
     </slot>
 
     <slot />
+
+    <a href='/support'>
+      <button
+        class='fixed bottom-4 right-4 hidden rounded-full bg-red-800 p-2 px-4 font-semibold text-white shadow-md md:flex'
+      >
+        Customer Support
+      </button>
+    </a>
+
+    <Authenticator />
   </body>
 </html>

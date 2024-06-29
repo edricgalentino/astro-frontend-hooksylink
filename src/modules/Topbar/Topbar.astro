@@ -1,16 +1,16 @@
 ---
 import MobileTopbar from './MobileTopbar';
 
-const links = ['templates', 'pricing', 'about'];
+const links = ['/templates', '#pricing'];
 ---
 
 <main class='flex w-full items-center justify-center'>
   <nav
-    class='fixed top-6 mx-auto flex w-[90%] max-w-7xl items-center justify-between rounded-full bg-white p-4 pl-6 pr-5 lg:p-6 lg:pl-10 lg:pr-8'
+    class='fixed top-6 z-[999] mx-auto flex w-[90%] items-center justify-between rounded-full border border-black bg-white p-4 pl-6 pr-5 md:max-w-[80%] lg:p-6 lg:pl-10 lg:pr-8'
   >
     <a href='/' class='flex items-end justify-center gap-1'>
       <img
-        src='/public/logo/hooksylink_logo.png'
+        src='/logo/hooksylink_logo.png'
         alt='HooksyLink'
         class='h-7 w-7 md:h-10 md:w-10'
       />
@@ -21,34 +21,36 @@ const links = ['templates', 'pricing', 'about'];
       </h1>
     </a>
 
-    <div class='hidden items-center justify-center gap-1 md:flex'>
+    <div class='hidden items-center justify-center gap-1 lg:flex'>
       {
         links.map((link) => (
           <a
-            href={`/${link}`}
-            class='rounded-full px-2 text-base capitalize transition-all hover:bg-slate-200 hover:py-1.5 lg:px-6 lg:text-lg lg:hover:py-3'
+            href={`${link}`}
+            class='rounded-full border border-transparent px-2 text-base capitalize transition-all hover:border-black hover:bg-[#f8f4e1] hover:py-1.5 lg:px-6 lg:text-lg lg:hover:py-3'
           >
-            {link}
+            {link.slice(1)}
           </a>
         ))
       }
     </div>
 
     <div class='hidden gap-4 text-base md:flex lg:text-lg'>
-      <button
-        class='login-button whitespace-nowrap rounded-lg bg-slate-200 font-semibold md:p-3 md:px-6 lg:p-4 lg:px-8'
-      >
-        <a href='/login'>Login</a>
-      </button>
-      <button
-        class='sign-up-button whitespace-nowrap rounded-full bg-slate-900 font-semibold text-white md:p-3 md:px-6 lg:p-4 lg:px-8'
-      >
-        <a href='/sign-up'>Sign up free</a>
-      </button>
+      <a href='/login'>
+        <button
+          class='login-button whitespace-nowrap rounded-lg border border-black bg-[#f8f4e1] font-semibold md:p-2.5 md:px-6 lg:p-3.5 lg:px-8'
+        >
+          Login
+        </button>
+      </a>
+      <a href='/signup'>
+        <button
+          class='sign-up-button whitespace-nowrap rounded-full bg-slate-900 font-semibold text-white md:p-3 md:px-6 lg:p-4 lg:px-8'
+        >
+          Sign up free
+        </button>
+      </a>
     </div>
-    <div class='flex gap-4 text-lg md:hidden'>
-      <MobileTopbar links={links} client:only />
-    </div>
+    <MobileTopbar links={links} client:load />
   </nav>
 </main>
 

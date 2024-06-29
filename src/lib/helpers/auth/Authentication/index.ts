@@ -1,11 +1,11 @@
 import crypto from '../../crypto';
-import { type cookieConfigOption } from '../../cookie/cookie';
-import cookie from '../../cookie';
+import type { cookieConfigOption } from '../../cookie/cookie';
 import type { User } from '../../../../modules/User/user';
 import Http from '../../../http';
 import JWT from '../../jwt';
 import url from '../../../http/url';
 import { $AUTH, $IS_LOGIN, $TOKEN, $USER } from '../../../stores/auth';
+import Cookies from '../../cookie';
 
 type userMeResponse = {
   err_code: number;
@@ -64,8 +64,8 @@ class Authentication {
   public static async logoutUser() {
     const token = Authentication.getToken();
     await Http.post(url.auth.logout, { token });
-    cookie.clear();
-    window.location.href = '/signin';
+    Cookies.clear();
+    window.location.href = '/login';
   }
   /**
    * * Set All User Data to state and cookie
@@ -98,7 +98,7 @@ class Authentication {
      * TODO: Set User To Cookie
      */
     const encryptedUser = crypto.encrypt(user);
-    cookie.set(
+    Cookies.set(
       Authentication.CONFIG.USER_KEY,
       encryptedUser,
       Authentication.CONFIG.COOKIE_OPTION,
@@ -111,7 +111,7 @@ class Authentication {
    * either better use useAuth() Hooks
    */
   public static getUserFromCookie(): User {
-    const userFromCookie = cookie.get(Authentication.CONFIG.USER_KEY);
+    const userFromCookie = Cookies.get(Authentication.CONFIG.USER_KEY);
     return crypto.decrypt(userFromCookie);
   }
 
@@ -120,7 +120,7 @@ class Authentication {
    */
   public static getToken(): string {
     let token = '';
-    token = cookie.get(Authentication.CONFIG.ACCESS_TOKEN_KEY);
+    token = Cookies.get(Authentication.CONFIG.ACCESS_TOKEN_KEY);
     return crypto.decrypt(token);
   }
 }
