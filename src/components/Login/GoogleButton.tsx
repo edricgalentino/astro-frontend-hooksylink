@@ -19,23 +19,21 @@ export function GoogleButton() {
     const state = urlParams.get('state');
     const provider = urlParams.get('provider');
 
-    if (!code || !state || provider !== 'google') {
-      return;
-    }
+    if (!code || !state || provider !== 'google') return;
 
     setIsLoading(true);
-    Http.get<{ token: string }>(
+    Http.get<{ accessToken: string; refreshToken: string }>(
       `${url.oauth.google.callback}${window.location.search}`,
     )
       .then(({ response, error }) => {
-        if (!response?.token) {
+        if (!response?.accessToken) {
           setError(error?.message || 'Something went wrong.');
           setIsLoading(false);
 
           return;
         }
 
-        let redirectUrl = '/';
+        let redirectUrl = '/admin';
         const googleRedirectAt = localStorage.getItem(GOOGLE_REDIRECT_AT);
         const lastPageBeforeGoogle = localStorage.getItem(GOOGLE_LAST_PAGE);
 
@@ -59,8 +57,7 @@ export function GoogleButton() {
 
         localStorage.removeItem(GOOGLE_REDIRECT_AT);
         localStorage.removeItem(GOOGLE_LAST_PAGE);
-        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.token, {
-          path: '/',
+        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.accessToken, {
           maxAge: 30,
           domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
         });

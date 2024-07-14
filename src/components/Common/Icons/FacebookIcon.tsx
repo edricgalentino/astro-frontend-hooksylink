@@ -1,8 +1,8 @@
-type LinkedInIconProps = {
+type FacebookIconProps = {
   className?: string;
 };
 
-export function LinkedInIcon(props: LinkedInIconProps) {
+export function FacebookIcon(props: FacebookIconProps) {
   const { className } = props;
 
   return (

@@ -19,16 +19,14 @@ export function GitHubButton() {
     const state = urlParams.get('state');
     const provider = urlParams.get('provider');
 
-    if (!code || !state || provider !== 'github') {
-      return;
-    }
+    if (!code || !state || provider !== 'github') return;
 
     setIsLoading(true);
-    Http.get<{ token: string }>(
+    Http.get<{ accessToken: string; refreshToken: string }>(
       `${url.oauth.github.callback}${window.location.search}`,
     )
       .then(({ response, error }) => {
-        if (!response?.token) {
+        if (!response?.accessToken) {
           const errMessage = error?.message || 'Something went wrong.';
           setError(errMessage);
           setIsLoading(false);
@@ -36,7 +34,7 @@ export function GitHubButton() {
           return;
         }
 
-        let redirectUrl = '/';
+        let redirectUrl = '/admin';
         const gitHubRedirectAt = localStorage.getItem(GITHUB_REDIRECT_AT);
         const lastPageBeforeGithub = localStorage.getItem(GITHUB_LAST_PAGE);
 
@@ -60,11 +58,11 @@ export function GitHubButton() {
 
         localStorage.removeItem(GITHUB_REDIRECT_AT);
         localStorage.removeItem(GITHUB_LAST_PAGE);
-        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.token, {
-          path: '/',
+        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.accessToken, {
           maxAge: 30,
           domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
         });
+
         window.location.href = redirectUrl;
       })
       .catch((err) => {

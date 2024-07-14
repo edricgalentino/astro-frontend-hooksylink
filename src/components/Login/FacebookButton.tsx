@@ -4,12 +4,12 @@ import url from '../../lib/http/url';
 import Cookies from '../../lib/helpers/cookie';
 import JWT from '../../lib/helpers/jwt';
 import { Spinner } from '../Common/Icons/Spinner';
-import { LinkedInIcon } from '../Common/Icons/LinkedInIcon';
+import { FacebookIcon } from '../Common/Icons/FacebookIcon';
 
-const LINKEDIN_REDIRECT_AT = 'linkedInRedirectAt';
-const LINKEDIN_LAST_PAGE = 'linkedInLastPage';
+const FACEBOOK_REDIRECT_AT = 'facebookRedirectAt';
+const FACEBOOK_LAST_PAGE = 'facebookLastPage';
 
-export function LinkedInButton() {
+export function FacebookButton() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -19,35 +19,33 @@ export function LinkedInButton() {
     const state = urlParams.get('state');
     const provider = urlParams.get('provider');
 
-    if (!code || !state || provider !== 'linkedin') {
-      return;
-    }
+    if (!code || !state || provider !== 'facebook') return;
 
     setIsLoading(true);
-    Http.get<{ token: string }>(
-      `${url.oauth.linkedin.callback}${window.location.search}`,
+    Http.get<{ accessToken: string; refreshToken: string }>(
+      `${url.oauth.facebook.callback}${window.location.search}`,
     )
       .then(({ response, error }) => {
-        if (!response?.token) {
+        if (!response?.accessToken) {
           setError(error?.message || 'Something went wrong.');
           setIsLoading(false);
 
           return;
         }
 
-        let redirectUrl = '/';
-        const linkedInRedirectAt = localStorage.getItem(LINKEDIN_REDIRECT_AT);
-        const lastPageBeforeLinkedIn = localStorage.getItem(LINKEDIN_LAST_PAGE);
+        let redirectUrl = '/admin';
+        const facebookRedirectAt = localStorage.getItem(FACEBOOK_REDIRECT_AT);
+        const lastPageBeforeFacebook = localStorage.getItem(FACEBOOK_LAST_PAGE);
 
         // If the social redirect is there and less than 30 seconds old
         // redirect to the page that user was on before they clicked the github login button
-        if (linkedInRedirectAt && lastPageBeforeLinkedIn) {
-          const socialRedirectAtTime = parseInt(linkedInRedirectAt, 10);
+        if (facebookRedirectAt && lastPageBeforeFacebook) {
+          const socialRedirectAtTime = parseInt(facebookRedirectAt, 10);
           const now = Date.now();
           const timeSinceRedirect = now - socialRedirectAtTime;
 
           if (timeSinceRedirect < 30 * 1000) {
-            redirectUrl = lastPageBeforeLinkedIn;
+            redirectUrl = lastPageBeforeFacebook;
           }
         }
 
@@ -57,10 +55,9 @@ export function LinkedInButton() {
           redirectUrl = authRedirectUrl;
         }
 
-        localStorage.removeItem(LINKEDIN_REDIRECT_AT);
-        localStorage.removeItem(LINKEDIN_LAST_PAGE);
-        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.token, {
-          path: '/',
+        localStorage.removeItem(FACEBOOK_REDIRECT_AT);
+        localStorage.removeItem(FACEBOOK_LAST_PAGE);
+        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.accessToken, {
           maxAge: 30,
           domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
         });
@@ -74,7 +71,7 @@ export function LinkedInButton() {
 
   const handleClick = () => {
     setIsLoading(true);
-    Http.get<{ loginUrl: string }>(url.oauth.linkedin.login)
+    Http.get<{ loginUrl: string }>(url.oauth.facebook.login)
       .then(({ response, error }) => {
         if (!response?.loginUrl) {
           setError(error?.message || 'Something went wrong.');
@@ -88,8 +85,8 @@ export function LinkedInButton() {
         if (!['/login', '/signup'].includes(window.location.pathname)) {
           const pagePath = window.location.pathname;
 
-          localStorage.setItem(LINKEDIN_REDIRECT_AT, Date.now().toString());
-          localStorage.setItem(LINKEDIN_LAST_PAGE, pagePath);
+          localStorage.setItem(FACEBOOK_REDIRECT_AT, Date.now().toString());
+          localStorage.setItem(FACEBOOK_LAST_PAGE, pagePath);
         }
 
         window.location.href = response.loginUrl;
@@ -110,9 +107,9 @@ export function LinkedInButton() {
         {isLoading ? (
           <Spinner className={'h-[18px] w-[18px]'} isDualRing={false} />
         ) : (
-          <LinkedInIcon className={'h-[18px] w-[18px]'} />
+          <FacebookIcon className={'h-[18px] w-[18px]'} />
         )}
-        Continue with LinkedIn
+        Continue with Facebook
       </button>
       {error && (
         <p className="mb-2 mt-1 text-sm font-medium text-red-600">{error}</p>
