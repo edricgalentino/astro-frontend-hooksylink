@@ -1,6 +1,6 @@
 ---
 import BaseLayout, { type Props as BaseLayoutProps } from './BaseLayout.astro';
-import AdminSidebar from './../components/AdminSidebar';
+import AdminNavigation from '../components/AdminNavigation';
 
 export interface Props extends BaseLayoutProps {}
 
@@ -9,14 +9,22 @@ const props = Astro.props;
 
 <BaseLayout {...props} noIndex={true}>
   <div slot='slot-topbar'></div>
+  <div class='bg-background flex h-full w-full items-center justify-center'>
+    <slot name='slot-sidebar'>
+      <AdminNavigation client:load />
+    </slot>
 
-  <AdminTopbar />
+    <div class='flex h-full w-full'>
+      <slot />
+    </div>
 
-  <slot name='slot-sidebar'>
-    <AdminSidebar />
-  </slot>
-
-  <PreviewTemplate />
-
-  <slot />
+    <div class='flex h-full w-full flex-col items-center justify-center gap-6'>
+      <slot name='slot-topbar'>
+        <!-- <AdminTopbar /> -->
+      </slot>
+      <slot name='slot-preview'>
+        <!-- <PreviewTemplate /> -->
+      </slot>
+    </div>
+  </div>
 </BaseLayout>

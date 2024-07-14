@@ -14,8 +14,8 @@ type userMeResponse = {
 };
 const conf: cookieConfigOption = {
   sameSite: 'strict',
-  path: '/',
-  maxAge: 60 * 60 * 2,
+
+  maxAge: 30 * 60 * 60 * 2,
   secure: true,
 };
 
@@ -64,7 +64,7 @@ class Authentication {
   public static async logoutUser() {
     const token = Authentication.getToken();
     await Http.post(url.auth.logout, { token });
-    Cookies.clear();
+    Cookies.delete(Authentication.CONFIG.ACCESS_TOKEN_KEY);
     window.location.href = '/login';
   }
   /**

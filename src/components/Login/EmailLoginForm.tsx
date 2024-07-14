@@ -36,7 +36,6 @@ export function EmailLoginForm() {
     // Log the user in and reload the page
     if (response?.access_token) {
       Cookies.set(JWT.TOKEN_COOKIE_NAME, response.access_token, {
-        path: '/',
         maxAge: 30,
         domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
       });
@@ -102,7 +101,7 @@ export function EmailLoginForm() {
       </p> */}
 
       {error && (
-        <p className="rounded-md bg-red-100 p-2 text-red-800">{error}</p>
+        <p className="text-secondary rounded-md bg-red-100 p-2">{error}</p>
       )}
 
       <button

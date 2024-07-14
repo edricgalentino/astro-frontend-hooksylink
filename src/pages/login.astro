@@ -3,14 +3,14 @@ import Divider from '../components/Login/Divider.astro';
 import { EmailLoginForm } from '../components/Login/EmailLoginForm';
 import { GitHubButton } from '../components/Login/GitHubButton';
 import { GoogleButton } from '../components/Login/GoogleButton';
-import { LinkedInButton } from '../components/Login/LinkedInButton';
+import { FacebookButton } from '../components/Login/FacebookButton';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title='Login'>
   <div slot='slot-topbar'></div>
   <main
-    class='flex h-screen w-full items-center justify-center bg-[#f8f4e1] p-4 sm:p-0'
+    class='bg-default flex h-screen w-full items-center justify-center p-4 sm:p-0'
   >
     <section
       class='mx-auto flex flex-col items-start justify-start rounded-2xl border border-black bg-white p-6 shadow-xl sm:max-w-[400px] sm:items-center sm:justify-center sm:py-20 md:p-10'
@@ -25,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class='flex w-full flex-col gap-2'>
         <GitHubButton client:load />
         <GoogleButton client:load />
-        <LinkedInButton client:load />
+        <FacebookButton client:load />
       </div>
 
       <Divider />
@@ -36,7 +36,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Don't have an account?{' '}
         <a
           href='/signup'
-          class='font-medium text-red-800 hover:text-red-700 hover:underline'
+          class='text-secondary font-medium hover:text-red-700 hover:underline'
         >
           Sign up
         </a>

@@ -1,5 +1,6 @@
 ---
 import Authenticator from '../components/Common/Authenticator/Authenticator.astro';
+import Button from '../components/Common/Button';
 import { siteConfig } from '../lib/core/config';
 import Topbar from '../modules/Topbar/Topbar.astro';
 import '@fontsource-variable/inter';
@@ -119,20 +120,20 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl;
     }
     <title>{title} - HooksyLink</title>
   </head>
-  <body class='font-sans'>
+  <body class='text-tertiary font-sans'>
     <slot name='slot-topbar'>
       <Topbar />
     </slot>
 
     <slot />
 
-    <a href='/support'>
-      <button
-        class='fixed bottom-4 right-4 hidden rounded-full bg-red-800 p-2 px-4 font-semibold text-white shadow-md md:flex'
-      >
-        Customer Support
-      </button>
-    </a>
+    <slot name='slot-footer'>
+      <a href='/support'>
+          <Button color="secondary" size="lg" className="fixed bottom-4 right-4 shadow-md">
+            Customer Support
+          </Button>
+      </a>
+    </slot>
 
     <Authenticator />
   </body>

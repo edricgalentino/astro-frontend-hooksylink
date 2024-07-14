@@ -39,7 +39,6 @@ export function EmailSignupForm() {
     // Log the user in and reload the page
     if (response?.access_token) {
       Cookies.set(JWT.TOKEN_COOKIE_NAME, response.access_token, {
-        path: '/',
         maxAge: 30,
         domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
       });

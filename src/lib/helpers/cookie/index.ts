@@ -25,7 +25,7 @@ class Cookies {
     {
       domain = window.location.hostname,
       httpOnly = false,
-      maxAge = 60 * 60 * 24,
+      maxAge = 1,
       secure = false,
       path = '/',
       sameSite = 'lax',
@@ -35,7 +35,7 @@ class Cookies {
       {
         domain,
         httpOnly,
-        maxAge,
+        maxAge: maxAge * 24 * 60 * 60,
         secure,
         path,
         sameSite,

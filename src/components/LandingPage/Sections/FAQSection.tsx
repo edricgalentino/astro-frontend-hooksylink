@@ -51,7 +51,7 @@ const FAQ = [
   },
   {
     q: 'What social media platforms can I use with Hooksylink?',
-    a: "Hooksylink supports all major social media platforms, including Facebook, Twitter, Instagram, LinkedIn, YouTube, TikTok, and more. We're constantly adding new integrations to meet your needs.",
+    a: "Hooksylink supports all major social media platforms, including Facebook, Twitter, Instagram, Facebook, YouTube, TikTok, and more. We're constantly adding new integrations to meet your needs.",
   },
   {
     q: 'What if the platform I need is not available?',

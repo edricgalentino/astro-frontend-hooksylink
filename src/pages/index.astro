@@ -1,7 +1,9 @@
 ---
+import Button from '../components/Common/Button';
 import FormClaimUsername from '../components/LandingPage/FormClaimUsername';
 import FAQSection from '../components/LandingPage/Sections/FAQSection';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import MainLogo from '../components/Common/MainLogo'
 
 const features = [
   {
@@ -86,15 +88,15 @@ const pricing = [
 <BaseLayout title='One Link to Rule Them All'>
   <main class='flex h-full w-full flex-col items-center justify-center'>
     <section
-      class='flex h-full w-full items-start justify-center bg-[#f8f4e1] p-8 pt-32 lg:px-20 lg:pt-48'
+      class='bg-default flex h-full w-full items-start justify-center p-8 pt-32 lg:px-20 lg:pt-48'
     >
       <div
         class='flex w-full flex-col items-center justify-between gap-8 xl:max-w-[80%] xl:flex-row'
       >
-        <div class='flex w-full flex-col items-start justify-center gap-8'>
+        <div class='flex w-full flex-col text-center xl:text-start items-center xl:items-start justify-center gap-8'>
           <h1 class='max-w-4xl text-4xl font-bold md:text-6xl'>
-            Link That <span class='text-red-800'>Connects Everything</span>. One
-            Link to Rule Them All.
+            Link That <span class='text-secondary inline'>Connects Everything</span>.
+            One Link to Rule Them All.
           </h1>
           <p class='max-w-2xl text-lg md:text-xl'>
             Say goodbye to juggling multiple links. With
@@ -120,7 +122,7 @@ const pricing = [
     </section>
 
     <section
-      class='flex h-full w-full items-center justify-center border-b border-black py-20 md:px-20 md:py-20'
+      class='border-tertiary flex h-full w-full items-center justify-center border-b py-20 md:px-20 md:py-20'
     >
       <div
         class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
@@ -136,17 +138,15 @@ const pricing = [
           <a href='#usage' class='underline'>many more</a>.
         </p>
         <a href='/sign-in'>
-          <button
-            class='button whitespace-nowrap rounded-full bg-red-800 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl lg:p-4 lg:px-8'
-          >
+          <Button size='lg' color='secondary' className='hover:px-12'>
             Get Started for Free
-          </button>
+          </Button>
         </a>
       </div>
     </section>
 
     <section
-      class='flex h-full w-full items-center justify-center border-b border-black p-16 md:px-20'
+      class='border-tertiary flex h-full w-full items-center justify-center border-b p-16 md:px-20'
     >
       <div
         class='flex w-full flex-col items-center justify-between gap-8 md:max-w-[80%]'
@@ -158,7 +158,7 @@ const pricing = [
         <div class='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
           {
             features.map((feature) => (
-              <div class='relative bottom-0 flex flex-col items-center justify-center gap-4 rounded-xl border border-black px-6 py-10 transition-all duration-150 ease-in-out hover:bottom-2 hover:shadow-lg'>
+              <div class='border-tertiary relative bottom-0 flex flex-col items-center justify-center gap-4 rounded-xl border px-6 py-10 transition-all duration-150 ease-in-out hover:bottom-2 hover:shadow-lg'>
                 <img
                   src={feature.image}
                   alt={feature.title}
@@ -177,7 +177,7 @@ const pricing = [
 
     <section
       id='pricing'
-      class='flex h-full w-full items-center justify-center border-b border-black bg-[#f8f4e1] py-20 md:px-20 md:py-20'
+      class='bg-default border-tertiary flex h-full w-full items-center justify-center border-b py-20 md:px-20 md:py-20'
     >
       <div
         class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
@@ -196,7 +196,7 @@ const pricing = [
                     ? '/sign-in'
                     : `/sign-in?plan=${plan.title.toLowerCase()}`
                 }
-                class='flex h-full max-w-sm flex-col items-center justify-start gap-4 rounded-xl border border-black bg-white px-6 py-10 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg'
+                class='border-tertiary flex h-full max-w-sm flex-col items-center justify-start gap-4 rounded-xl border bg-white px-6 py-10 transition-all duration-200 ease-in-out hover:scale-105 hover:shadow-lg'
               >
                 <h3 class='text-xl font-semibold md:text-3xl'>{plan.title}</h3>
                 <p class='h-10 text-center text-base'>{plan.description}</p>
@@ -231,7 +231,7 @@ const pricing = [
                       : 'Free forever'}
                   </p>
                 </div>
-                <button class='button whitespace-nowrap rounded-full bg-red-800 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl'>
+                <button class='button bg-secondary whitespace-nowrap rounded-full px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl'>
                   Get Started for Free
                 </button>
               </a>
@@ -248,7 +248,7 @@ const pricing = [
     </section>
 
     <section
-      class='flex h-full w-full items-center justify-center border-b border-black py-20 md:px-20 md:py-20'
+      class='border-tertiary flex h-full w-full items-center justify-center border-b py-20 md:px-20 md:py-20'
     >
       <div
         class='flex w-full flex-col items-center justify-between gap-8 px-4 md:max-w-[80%]'
@@ -262,11 +262,9 @@ const pricing = [
           and customizable link.
         </p>
         <a href='/sign-in'>
-          <button
-            class='button whitespace-nowrap rounded-full bg-slate-900 px-4 py-2 text-lg font-semibold text-white md:p-3 md:px-6 md:text-xl lg:p-4 lg:px-8'
-          >
+          <Button size='lg' color='tertiary' className='hover:px-12'>
             Get Started for Free
-          </button>
+          </Button>
         </a>
       </div>
     </section>
@@ -294,25 +292,9 @@ const pricing = [
 
   <footer class='flex w-full flex-col items-center justify-center'>
     <div
-      class='flex w-full flex-col gap-8 bg-[#f8f4e1] p-8 md:max-w-[80%] md:flex-row md:rounded-full md:p-16'
+      class='bg-default flex w-full flex-col gap-8 p-8 md:max-w-[80%] md:flex-row md:rounded-full md:p-16'
     >
-      <div class='flex w-full flex-col items-center justify-center gap-4'>
-        <a href='/' class='flex items-end justify-center gap-1'>
-          <img
-            src='/logo/hooksylink_logo.png'
-            alt='HooksyLink'
-            class='h-9 w-9 md:h-10 md:w-10'
-          />
-          <h1
-            class='topbar-title text-xl font-extrabold text-slate-700 md:text-2xl'
-          >
-            ooksyLink
-          </h1>
-        </a>
-        <p class='whitespace-nowrap text-sm md:text-base'>
-          One Link to Rule Them All.
-        </p>
-      </div>
+      <MainLogo />
 
       <div
         class='flex w-full items-start justify-center gap-6 text-sm md:gap-12 md:text-base'
@@ -350,14 +332,3 @@ const pricing = [
     </div>
   </footer>
 </BaseLayout>
-<style>
-  .button:hover {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-  .button {
-    padding-right: 32px;
-    padding-left: 32px;
-    transition: all 0.2s;
-  }
-</style>

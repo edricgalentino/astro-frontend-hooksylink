@@ -1,4 +1,6 @@
 ---
+import Button from '../../components/Common/Button';
+import MainLogo from '../../components/Common/MainLogo';
 import MobileTopbar from './MobileTopbar';
 
 const links = ['/templates', '#pricing'];
@@ -6,27 +8,16 @@ const links = ['/templates', '#pricing'];
 
 <main class='flex w-full items-center justify-center'>
   <nav
-    class='fixed top-6 z-[999] mx-auto flex w-[90%] items-center justify-between rounded-full border border-black bg-white p-4 pl-6 pr-5 md:max-w-[80%] lg:p-6 lg:pl-10 lg:pr-8'
+    class='border-tertiary fixed top-6 z-[999] mx-auto flex w-[90%] items-center justify-between rounded-full border bg-white p-4 pl-6 pr-5 md:max-w-[80%] lg:p-6 lg:pl-10 lg:pr-8'
   >
-    <a href='/' class='flex items-end justify-center gap-1'>
-      <img
-        src='/logo/hooksylink_logo.png'
-        alt='HooksyLink'
-        class='h-7 w-7 md:h-10 md:w-10'
-      />
-      <h1
-        class='topbar-title text-lg font-extrabold text-slate-700 md:text-2xl'
-      >
-        ooksyLink
-      </h1>
-    </a>
+    <MainLogo withText={false} align='start' className='!w-fit' />
 
     <div class='hidden items-center justify-center gap-1 lg:flex'>
       {
         links.map((link) => (
           <a
             href={`${link}`}
-            class='rounded-full border border-transparent px-2 text-base capitalize transition-all hover:border-black hover:bg-[#f8f4e1] hover:py-1.5 lg:px-6 lg:text-lg lg:hover:py-3'
+            class='hover:bg-default hover:border-tertiary rounded-full border border-transparent px-2 text-base capitalize transition-all hover:py-1.5 lg:px-6 lg:text-lg lg:hover:py-3'
           >
             {link.slice(1)}
           </a>
@@ -36,40 +27,16 @@ const links = ['/templates', '#pricing'];
 
     <div class='hidden gap-4 text-base md:flex lg:text-lg'>
       <a href='/login'>
-        <button
-          class='login-button whitespace-nowrap rounded-lg border border-black bg-[#f8f4e1] font-semibold md:p-2.5 md:px-6 lg:p-3.5 lg:px-8'
-        >
+        <Button accent='outline' size='lg' isRounded={false} className='hover:px-12'>
           Login
-        </button>
+        </Button>
       </a>
       <a href='/signup'>
-        <button
-          class='sign-up-button whitespace-nowrap rounded-full bg-slate-900 font-semibold text-white md:p-3 md:px-6 lg:p-4 lg:px-8'
-        >
+        <Button color='tertiary' size='lg' className='hover:px-12'>
           Sign up free
-        </button>
+        </Button>
       </a>
     </div>
     <MobileTopbar links={links} client:load />
   </nav>
 </main>
-
-<style>
-  .topbar-title {
-    text-shadow: 2px 4px #f8f4e1;
-  }
-  .login-button:hover {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-  .sign-up-button:hover {
-    padding-right: 48px;
-    padding-left: 48px;
-  }
-  .login-button,
-  .sign-up-button {
-    padding-right: 32px;
-    padding-left: 32px;
-    transition: all 0.2s;
-  }
-</style>

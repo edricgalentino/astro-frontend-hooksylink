@@ -4,7 +4,6 @@ import JWT from '../../../lib/helpers/jwt';
 // Prepares the UI for the user who is logged in
 function handleGuest() {
   const authenticatedRoutes = ['/admin/*'];
-
   // If the user is on an authenticated route, redirect them to the home page
   if (
     authenticatedRoutes.some((route) => window.location.pathname.match(route))

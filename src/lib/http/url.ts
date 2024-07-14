@@ -8,16 +8,16 @@ const url = {
   },
   oauth: {
     google: {
-      login: `${baseUrl}/auth/google/login`,
-      callback: `${baseUrl}/auth/google/callback`,
+      login: `${baseUrl}/oauth/google/login`,
+      callback: `${baseUrl}/oauth/google/callback`,
     },
     github: {
-      login: `${baseUrl}/auth/github/login`,
-      callback: `${baseUrl}/auth/github/callback`,
+      login: `${baseUrl}/oauth/github/login`,
+      callback: `${baseUrl}/oauth/github/callback`,
     },
-    linkedin: {
-      login: `${baseUrl}/auth/linkedin/login`,
-      callback: `${baseUrl}/auth/linkedin/callback`,
+    facebook: {
+      login: `${baseUrl}/oauth/facebook/login`,
+      callback: `${baseUrl}/oauth/facebook/callback`,
     },
   },
   user: {
