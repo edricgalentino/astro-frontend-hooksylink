@@ -1,11 +1,11 @@
-import crypto from '../../crypto';
-import type { cookieConfigOption } from '../../cookie/cookie';
-import type { User } from '../../../../modules/User/user';
-import Http from '../../../http';
-import JWT from '../../jwt';
-import url from '../../../http/url';
-import { $AUTH, $IS_LOGIN, $TOKEN, $USER } from '../../../stores/auth';
-import Cookies from '../../cookie';
+import crypto from "../../crypto";
+import type { cookieConfigOption } from "../../cookie/cookie";
+import type { User } from "../../../../modules/User/user";
+import Http from "../../../http";
+import JWT from "../../jwt";
+import url from "../../../http/url";
+import { $AUTH, $IS_LOGIN, $TOKEN, $USER } from "../../../stores/auth";
+import Cookies from "../../cookie";
 
 type userMeResponse = {
   err_code: number;
@@ -13,7 +13,7 @@ type userMeResponse = {
   data: User;
 };
 const conf: cookieConfigOption = {
-  sameSite: 'strict',
+  sameSite: "strict",
 
   maxAge: 30 * 60 * 60 * 2,
   secure: true,
@@ -22,7 +22,7 @@ const conf: cookieConfigOption = {
 class Authentication {
   public static CONFIG = {
     ACCESS_TOKEN_KEY: JWT.TOKEN_COOKIE_NAME,
-    USER_KEY: 'user',
+    USER_KEY: "user",
     COOKIE_OPTION: conf, // 2 hour expired time
   };
 
@@ -65,7 +65,7 @@ class Authentication {
     const token = Authentication.getToken();
     await Http.post(url.auth.logout, { token });
     Cookies.delete(Authentication.CONFIG.ACCESS_TOKEN_KEY);
-    window.location.href = '/login';
+    window.location.href = "/login";
   }
   /**
    * * Set All User Data to state and cookie
@@ -98,11 +98,7 @@ class Authentication {
      * TODO: Set User To Cookie
      */
     const encryptedUser = crypto.encrypt(user);
-    Cookies.set(
-      Authentication.CONFIG.USER_KEY,
-      encryptedUser,
-      Authentication.CONFIG.COOKIE_OPTION,
-    );
+    Cookies.set(Authentication.CONFIG.USER_KEY, encryptedUser, Authentication.CONFIG.COOKIE_OPTION);
   }
 
   /**
@@ -119,9 +115,7 @@ class Authentication {
    * * get Token From Cookies
    */
   public static getToken(): string {
-    let token = '';
-    token = Cookies.get(Authentication.CONFIG.ACCESS_TOKEN_KEY);
-    return crypto.decrypt(token);
+    return Cookies.get(Authentication.CONFIG.ACCESS_TOKEN_KEY);
   }
 }
 

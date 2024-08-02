@@ -6,9 +6,6 @@ module.exports = {
     './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,svg}',
     './editor/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue,svg}',
   ],
-  future: {
-    hoverOnlyWhenSupported: true,
-  },
   theme: {
     borderWidth: {
       DEFAULT: '1px',
@@ -88,7 +85,17 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        sans: [...defaultTheme.fontFamily.sans],
+        inter: ['Inter', ...defaultTheme.fontFamily.sans],
+        'dm-sans': ['DM Sans', ...defaultTheme.fontFamily.sans],
+        roboto: ['Roboto', ...defaultTheme.fontFamily.sans],
+        nunito: ['Nunito', ...defaultTheme.fontFamily.sans],
+        poppins: ['Poppins', ...defaultTheme.fontFamily.sans],
+        'open-sans': ['Open Sans', ...defaultTheme.fontFamily.sans],
+        lato: ['Lato', ...defaultTheme.fontFamily.sans],
+        montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
+        raleway: ['Raleway', ...defaultTheme.fontFamily.sans],
+        oswald: ['Oswald', ...defaultTheme.fontFamily.sans],
       },
       typography: {
         quoteless: {

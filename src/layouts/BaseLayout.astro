@@ -3,7 +3,16 @@ import Authenticator from '../components/Common/Authenticator/Authenticator.astr
 import Button from '../components/Common/Button';
 import { siteConfig } from '../lib/core/config';
 import Topbar from '../modules/Topbar/Topbar.astro';
-import '@fontsource-variable/inter';
+import '@fontsource/dm-sans';
+import '@fontsource/inter';
+import '@fontsource/roboto';
+import '@fontsource/nunito';
+import '@fontsource/poppins';
+import '@fontsource/open-sans';
+import '@fontsource/lato';
+import '@fontsource/montserrat';
+import '@fontsource/raleway';
+import '@fontsource/oswald';
 
 export interface Props {
   title: string;
@@ -120,7 +129,7 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl;
     }
     <title>{title} - HooksyLink</title>
   </head>
-  <body class='text-tertiary font-sans'>
+  <body class='font-sans text-tertiary'>
     <slot name='slot-topbar'>
       <Topbar />
     </slot>
@@ -129,9 +138,9 @@ const canonicalUrl = givenCanonical || currentPageAbsoluteUrl;
 
     <slot name='slot-footer'>
       <a href='/support'>
-          <Button color="secondary" size="lg" className="fixed bottom-4 right-4 shadow-md">
-            Customer Support
-          </Button>
+        <Button color='secondary' className='fixed bottom-4 right-4 shadow-md'>
+          Customer Support
+        </Button>
       </a>
     </slot>
 

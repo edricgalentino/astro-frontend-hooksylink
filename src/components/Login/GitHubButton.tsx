@@ -1,40 +1,42 @@
-import { useEffect, useState } from 'react';
-import { GitHubIcon } from '../Common/Icons/GitHubIcon.tsx';
-import { Spinner } from '../Common/Icons/Spinner.tsx';
-import Http from '../../lib/http/index.ts';
-import url from '../../lib/http/url.ts';
-import Cookies from '../../lib/helpers/cookie/index.ts';
-import JWT from '../../lib/helpers/jwt/index.ts';
+import { useEffect, useState } from "react";
+import { GitHubIcon } from "../Common/Icons/GitHubIcon.tsx";
+import { Spinner } from "../Common/Icons/Spinner.tsx";
+import Http from "../../lib/http/index.ts";
+import url from "../../lib/http/url.ts";
+import Cookies from "../../lib/helpers/cookie/index.ts";
+import JWT from "../../lib/helpers/jwt/index.ts";
 
-const GITHUB_REDIRECT_AT = 'githubRedirectAt';
-const GITHUB_LAST_PAGE = 'githubLastPage';
+const GITHUB_REDIRECT_AT = "githubRedirectAt";
+const GITHUB_LAST_PAGE = "githubLastPage";
 
 export function GitHubButton() {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const state = urlParams.get('state');
-    const provider = urlParams.get('provider');
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+    const provider = urlParams.get("provider");
 
-    if (!code || !state || provider !== 'github') return;
+    if (!code || !state || provider !== "github") return;
 
     setIsLoading(true);
-    Http.get<{ accessToken: string; refreshToken: string }>(
-      `${url.oauth.github.callback}${window.location.search}`,
-    )
+    Http.get<{ accessToken: string; refreshToken: string }>(`${url.oauth.github.callback}${window.location.search}`)
       .then(({ response, error }) => {
         if (!response?.accessToken) {
-          const errMessage = error?.message || 'Something went wrong.';
+          const errMessage = error?.message || "Something went wrong.";
           setError(errMessage);
           setIsLoading(false);
 
           return;
         }
 
-        let redirectUrl = '/admin';
+        let redirectUrl = "/admin";
+        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.accessToken, {
+          maxAge: 30 * 24 * 60 * 60,
+          domain: import.meta.env.DEV ? "localhost" : ".hooksy.link",
+        });
         const gitHubRedirectAt = localStorage.getItem(GITHUB_REDIRECT_AT);
         const lastPageBeforeGithub = localStorage.getItem(GITHUB_LAST_PAGE);
 
@@ -50,23 +52,19 @@ export function GitHubButton() {
           }
         }
 
-        const authRedirectUrl = localStorage.getItem('authRedirect');
+        const authRedirectUrl = localStorage.getItem("authRedirect");
         if (authRedirectUrl) {
-          localStorage.removeItem('authRedirect');
+          localStorage.removeItem("authRedirect");
           redirectUrl = authRedirectUrl;
         }
 
         localStorage.removeItem(GITHUB_REDIRECT_AT);
         localStorage.removeItem(GITHUB_LAST_PAGE);
-        Cookies.set(JWT.TOKEN_COOKIE_NAME, response.accessToken, {
-          maxAge: 30,
-          domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
-        });
 
         window.location.href = redirectUrl;
       })
       .catch((err) => {
-        setError('Something went wrong. Please try again later.');
+        setError("Something went wrong. Please try again later.");
         setIsLoading(false);
       });
   }, []);
@@ -74,14 +72,10 @@ export function GitHubButton() {
   const handleClick = async () => {
     setIsLoading(true);
 
-    const { response, error } = await Http.get<{ loginUrl: string }>(
-      url.oauth.github.login,
-    );
+    const { response, error } = await Http.get<{ loginUrl: string }>(url.oauth.github.login);
 
     if (error || !response?.loginUrl) {
-      setError(
-        error?.message || 'Something went wrong. Please try again later.',
-      );
+      setError(error?.message || "Something went wrong. Please try again later.");
 
       setIsLoading(false);
       return;
@@ -89,7 +83,7 @@ export function GitHubButton() {
 
     // For non authentication pages, we want to redirect back to the page
     // the user was on before they clicked the social login button
-    if (!['/login', '/signup'].includes(window.location.pathname)) {
+    if (!["/login", "/signup"].includes(window.location.pathname)) {
       const pagePath = window.location.pathname;
 
       localStorage.setItem(GITHUB_REDIRECT_AT, Date.now().toString());
@@ -106,16 +100,10 @@ export function GitHubButton() {
         disabled={isLoading}
         onClick={handleClick}
       >
-        {isLoading ? (
-          <Spinner className={'h-[18px] w-[18px]'} isDualRing={false} />
-        ) : (
-          <GitHubIcon className={'h-[18px] w-[18px]'} />
-        )}
+        {isLoading ? <Spinner className={"h-[18px] w-[18px]"} isDualRing={false} /> : <GitHubIcon className={"h-[18px] w-[18px]"} />}
         Continue with GitHub
       </button>
-      {error && (
-        <p className="mb-2 mt-1 text-sm font-medium text-red-600">{error}</p>
-      )}
+      {error && <p className="mb-2 mt-1 text-sm font-medium text-red-600">{error}</p>}
     </>
   );
 }

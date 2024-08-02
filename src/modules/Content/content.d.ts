@@ -12,10 +12,9 @@ export type Content = {
   is_active: boolean;
   is_deleted: boolean;
   clicks: number;
-  is_deleted: boolean;
   contact?: Contact;
   is_locked: boolean;
-  lock: Lock[];
+  lock?: Lock[];
   is_prioritized: boolean;
   priority_type?: 'SPOTLIGHT' | 'ANIMATE';
   priority_animation?: 'POP' | 'BOUNCE' | 'SWIPE';

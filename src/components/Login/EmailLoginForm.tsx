@@ -1,9 +1,10 @@
-import type { FormEvent } from 'react';
-import { useState } from 'react';
-import Cookies from '../../lib/helpers/cookie';
-import JWT from '../../lib/helpers/jwt';
-import Http from '../../lib/http';
-import url from '../../lib/http/url';
+import type { FormEvent } from "react";
+import { useState } from "react";
+import Cookies from "../../lib/helpers/cookie";
+import JWT from "../../lib/helpers/jwt";
+import Http from "../../lib/http";
+import url from "../../lib/http/url";
+import PasswordIndicator from "./PasswordIndicator";
 
 interface loginResponse {
   auth_id: number;
@@ -14,32 +15,30 @@ interface loginResponse {
 }
 
 export function EmailLoginForm() {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState("");
+  const [passwordIsVisible, setPasswordIsVisible] = useState<boolean>(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
-    const { response, error } = await Http.post<loginResponse>(
-      url.auth.signin,
-      {
-        username,
-        password,
-      },
-    );
+    const { response, error } = await Http.post<loginResponse>(url.auth.signin, {
+      username,
+      password,
+    });
 
     // Log the user in and reload the page
     if (response?.access_token) {
       Cookies.set(JWT.TOKEN_COOKIE_NAME, response.access_token, {
-        maxAge: 30,
-        domain: import.meta.env.DEV ? 'localhost' : '.hooksy.link',
+        maxAge: 30 * 24 * 60 * 60,
+        domain: import.meta.env.DEV ? "localhost" : ".hooksy.link",
       });
-      window.location.href = '/admin';
+      window.location.href = "/admin";
       return;
     }
 
@@ -52,7 +51,7 @@ export function EmailLoginForm() {
     // }
 
     setIsLoading(false);
-    setError(error?.message || 'Something went wrong. Please try again later.');
+    setError(error?.message || "Something went wrong. Please try again later.");
   };
 
   return (
@@ -61,9 +60,7 @@ export function EmailLoginForm() {
         Username
       </label>
       <div className="relative h-full w-full text-gray-800 md:w-max">
-        <p className="absolute left-3 top-[7px] z-10 w-min text-lg">
-          hooksy.link/
-        </p>
+        <p className="absolute left-3 top-[7px] z-10 w-min text-lg">hooksy.link/</p>
         <input
           type="text"
           className="flex w-full rounded-lg border border-gray-300 px-3 py-2 pl-[6.75rem] outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1 md:w-[318px]"
@@ -80,16 +77,21 @@ export function EmailLoginForm() {
       <label htmlFor="password" className="sr-only">
         Password
       </label>
-      <input
-        name="password"
-        type="password"
-        autoComplete="current-password"
-        required
-        className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(String(e.target.value))}
-      />
+      <div className="relative">
+        <input
+          name="password"
+          type={!passwordIsVisible ? "password" : "text"}
+          autoComplete="current-password"
+          min={6}
+          max={50}
+          required
+          className="block w-full rounded-lg border border-gray-300 px-3 py-2 outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(String(e.target.value))}
+        />
+        <PasswordIndicator passwordIsVisible={passwordIsVisible} setPasswordIsVisible={setPasswordIsVisible} />
+      </div>
 
       {/* <p className="mb-3 mt-2 text-sm text-gray-500">
         <a
@@ -100,16 +102,14 @@ export function EmailLoginForm() {
         </a>
       </p> */}
 
-      {error && (
-        <p className="text-secondary rounded-md bg-red-100 p-2">{error}</p>
-      )}
+      {error && <p className="text-secondary rounded-md bg-red-100 p-2">{error}</p>}
 
       <button
         type="submit"
         disabled={isLoading}
         className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400"
       >
-        {isLoading ? 'Please wait...' : 'Continue'}
+        {isLoading ? "Please wait..." : "Continue"}
       </button>
     </form>
   );

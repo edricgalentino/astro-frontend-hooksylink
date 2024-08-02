@@ -1,9 +1,10 @@
 import type { Content } from '../Content/content';
+import type { Theme } from '../Theme/theme';
 
 export type Template = {
   template_id: int;
   user_id: int;
-  link_id: int;
+  link: string;
   title: string;
   description: string;
   profile_image: string;

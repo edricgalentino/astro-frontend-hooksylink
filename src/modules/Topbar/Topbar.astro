@@ -37,6 +37,6 @@ const links = ['/templates', '#pricing'];
         </Button>
       </a>
     </div>
-    <MobileTopbar links={links} client:load />
+    <MobileTopbar links={links || []} client:load />
   </nav>
 </main>

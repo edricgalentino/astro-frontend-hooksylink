@@ -1,6 +1,8 @@
 ---
 import BaseLayout, { type Props as BaseLayoutProps } from './BaseLayout.astro';
 import AdminNavigation from '../components/AdminNavigation';
+import PreviewTemplate from '../components/PreviewTemplate/index.astro';
+import Button from '../components/Common/Button';
 
 export interface Props extends BaseLayoutProps {}
 
@@ -9,21 +11,38 @@ const props = Astro.props;
 
 <BaseLayout {...props} noIndex={true}>
   <div slot='slot-topbar'></div>
-  <div class='bg-background flex h-full w-full items-center justify-center'>
+  <div class='flex h-full w-full items-center justify-center bg-background'>
     <slot name='slot-sidebar'>
-      <AdminNavigation client:load />
+      <AdminNavigation client:only />
     </slot>
-
     <div class='flex h-full w-full'>
       <slot />
     </div>
 
-    <div class='flex h-full w-full flex-col items-center justify-center gap-6'>
+    <div
+      class='flex h-full w-fit flex-col items-center justify-center border-l border-l-tertiary px-8 md:h-screen md:w-[1000px]'
+    >
       <slot name='slot-topbar'>
-        <!-- <AdminTopbar /> -->
+        <div class='relative top-5 w-full'>
+          <div
+            class='absolute z-20 flex w-full items-center justify-between gap-20'
+          >
+            <a
+              href='https://hooksy.link/edricgalentino'
+              target='_blank'
+              rel='noopener noreferrer'
+              class='text-lg font-bold text-tertiary underline'
+            >
+              hooksy.link/edricgalentino
+            </a>
+            <Button color='secondary'>Share</Button>
+          </div>
+        </div>
       </slot>
       <slot name='slot-preview'>
-        <!-- <PreviewTemplate /> -->
+        <div class='flex h-full w-full items-center justify-center'>
+          <PreviewTemplate />
+        </div>
       </slot>
     </div>
   </div>
